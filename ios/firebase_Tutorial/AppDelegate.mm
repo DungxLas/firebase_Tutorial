@@ -1,5 +1,7 @@
 #import <Firebase.h>
 #import "AppDelegate.h"
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <React/RCTLinkingManager.h> 
 
 #import <React/RCTBridge.h>
 #import <React/RCTBundleURLProvider.h>
@@ -31,6 +33,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
   [FIRApp configure];
+  [[FBSDKApplicationDelegate sharedInstance] application:application
+                      didFinishLaunchingWithOptions:launchOptions];
   RCTAppSetupPrepareApp(application);
 
   RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];
@@ -57,6 +61,21 @@
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
   return YES;
+}
+
+- (BOOL)application:(UIApplication *)app
+            openURL:(NSURL *)url
+            options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options
+{
+  if ([[FBSDKApplicationDelegate sharedInstance] application:app openURL:url options:options]) {
+    return YES;
+  }
+
+  if ([RCTLinkingManager application:app openURL:url options:options]) {
+    return YES;
+  }
+
+  return NO;
 }
 
 - (NSURL *)sourceURLForBridge:(RCTBridge *)bridge

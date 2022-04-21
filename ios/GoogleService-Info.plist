@@ -19,16 +19,38 @@
 	<key>STORAGE_BUCKET</key>
 	<string>fir-tutorial-8a18c.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
-	<false></false>
+	<false/>
 	<key>IS_ANALYTICS_ENABLED</key>
-	<false></false>
+	<false/>
 	<key>IS_APPINVITE_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>IS_GCM_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>IS_SIGNIN_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>GOOGLE_APP_ID</key>
 	<string>1:588997243899:ios:1a026d36544077a4fb115e</string>
+  <key>LSApplicationQueriesSchemes</key>
+  <array>
+    <string>fbapi</string>
+    <string>fb-messenger-share-api</string>
+  </array>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>675513013715804</string>
+			</array>
+		</dict>
+	</array>
+	<key>FacebookAppID</key>
+	<string>675513013715804</string>
+	<key>CFBundleIdentifier</key>
+	<string></string>
+	<key>FacebookClientToken</key>
+	<string>230fec37e987604d83ddf0d051571a1d</string>
+	<key>FacebookDisplayName</key>
+	<string>firebaseTutorial</string>
 </dict>
 </plist>

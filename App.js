@@ -7,6 +7,11 @@ import {
 } from 'react-native';
 import { firebase } from '@react-native-firebase/auth';
 import Button from 'react-native-button';
+import {
+  AccessToken,
+  LoginManager,
+  LoginButton,
+} from 'react-native-fbsdk-next';
 
 export default class LoginComponent extends Component {
   constructor(props) {
@@ -66,6 +71,24 @@ export default class LoginComponent extends Component {
       .catch((error) => {
         console.log(`Register faild. Error = ${error}`);
       })
+  }
+
+  onFacebookLogin = () => {
+    LoginManager.logInWithPermissions(['public_profile', 'email'])
+      .then((result) => {
+        console.log(`Login success with permission: ${result.grantedPermissions.toString()}`);
+        return AccessToken.getCurrentAccessToken();
+      })
+      .then((data) => {
+        const credential = firebase.auth.FacebookAuthProvider.credential(data.accessToken);
+        return firebase.auth().signInWithCredential(credential);
+      })
+      .then((currentUser) => {
+        console.log(`Facebook login with user: ${JSON.stringify(currentUser.user)}`);
+      })
+      .catch((error) => {
+        console.log(`Facebook login faild with user: ${error}`);
+      });
   }
 
   render() {
@@ -190,6 +213,23 @@ export default class LoginComponent extends Component {
             Register
           </Button>
         </View>
+        <Button
+          containerStyle={{
+            padding: 10,
+            margin: 20,
+            borderRadius: 4,
+            backgroundColor: 'rgb(73,104,173)',
+            width: 150,
+            alignSelf: 'center'
+          }}
+          style={{
+            fontSize: 17,
+            color: 'white',
+          }}
+          onPress={this.onFacebookLogin}
+        >
+          FacebookLogin
+        </Button>
       </View>
     );
   }
